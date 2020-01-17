@@ -40,12 +40,26 @@ yarn add axios
 
 yarn add cors
 
-# FRONT END
+# MOBILE FRONT END
 
 yarn global add expo-cli
 
 # google for yarn global path and copy the export line below
 # export PATH="$(yarn global bin):$PATH"
 # edit ~/.bash_profile to include the line 
-# code .bash_profile
-# run expo start
+code .bash_profile
+
+run expo start
+
+# from reactnavigation.org documentation
+
+yarn add react-navigation
+expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context
+yarn add react-navigation-stack @react-native-community/masked-view
+
+# from http://docs.expo.io/
+
+expo install react-native-maps
+expo install expo-location
+expo install react-native-webview
+
