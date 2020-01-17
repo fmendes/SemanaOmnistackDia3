@@ -39,3 +39,13 @@ yarn add axios
 # BACKEND (backend folder)
 
 yarn add cors
+
+# FRONT END
+
+yarn global add expo-cli
+
+# google for yarn global path and copy the export line below
+# export PATH="$(yarn global bin):$PATH"
+# edit ~/.bash_profile to include the line 
+# code .bash_profile
+# run expo start
