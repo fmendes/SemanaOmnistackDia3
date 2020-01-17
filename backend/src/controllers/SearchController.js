@@ -9,11 +9,8 @@ module.exports = {
 
         // find all devs in a radius of 10km using $near operator
         // filter by tech using $in operator
-        const devs = await Dev.find( {
-            techs: {
-                $in: techsArray
-            }
-            , location: {
+        let findParameter = { 
+            location: {
                 $near: {
                     $geometry: {
                         type: 'Point'
@@ -23,10 +20,19 @@ module.exports = {
                     , $maxDistance: 10000
                 }
             }
-        } );
+        };
 
-        
+        console.log( 'techsArray', techsArray );
+        console.log( 'geometry', findParameter.location.$near.$geometry );
 
+        if( techsArray.length > 0 && techsArray[ 0 ] ) {
+            findParameter.techs = {
+                $in: techsArray
+            };
+        }
+
+        console.log( 'findParameter', findParameter );
+        const devs = await Dev.find( findParameter );
         //const devs = await Dev.find();
 
         return response.json( { devs } );

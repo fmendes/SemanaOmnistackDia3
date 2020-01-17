@@ -7,8 +7,12 @@ import { requestPermissionsAsync, getCurrentPositionAsync } from 'expo-location'
 import { TextInput } from 'react-native-gesture-handler';
 import { MaterialIcons } from '@expo/vector-icons';
 
+import api from '../services/api';
+
 function Main( { navigation } ) {
+    const [ devs, setDevs ] = useState( [] );
     const [ currentRegion, setCurrentRegion ] = useState( null );
+    const [ techs, setTechs ] = useState( '' );
 
     useEffect( () => {
         async function loadInitialPosition () {
@@ -32,6 +36,27 @@ function Main( { navigation } ) {
         loadInitialPosition();
     } );
 
+    async function loadDevs() {
+        const { latitude, longitude } = currentRegion;
+
+        const response = await api.get( '/search', {
+            params: {
+                latitude
+                , longitude
+                , techs
+            }
+        } );
+
+        console.log( 'devs', response.data.devs );
+
+        setDevs( response.data.devs );
+    }
+
+    function handleRegionChanged( region ) {
+        console.log( 'region', region );
+        setCurrentRegion( region );
+    }
+
     // don't show map until we have the location
     if( ! currentRegion ) {
         return null;
@@ -40,21 +65,28 @@ function Main( { navigation } ) {
     return ( 
     <>
     <MapView initialRegion={currentRegion}
+            onRegionChangeComplete={handleRegionChanged}
                     style={styles.map} >
-        <Marker coordinate={{ latitude: 37.7780959, longitude: -122.4079491 }} >
-            <Image source={{ uri: 'https://avatars3.githubusercontent.com/u/19373920?v=4' }}
-                    style={styles.avatar} />
-            <Callout onPress={ () => {
-                // navigate to profile
-                navigation.navigate( 'Profile', { github_username: 'fulanodetal' } );
-            }}>
-                <View style={styles.callout} >
-                    <Text style={styles.devName} >Fulano de Tal</Text>
-                    <Text style={styles.devBio} >Someone who develops</Text>
-                    <Text style={styles.devTechs} >Cobol</Text>
-                </View>
-            </Callout>
-        </Marker>
+        {devs.map( dev => (
+            <Marker key={dev._id} 
+                coordinate={{ 
+                latitude: dev.location.coordinates[ 1 ]
+                , longitude: dev.location.coordinates[ 0 ] 
+                }} >
+                <Image source={{ uri: dev.avatar_url }}
+                        style={styles.avatar} />
+                <Callout onPress={ () => {
+                    // navigate to profile
+                    navigation.navigate( 'Profile', { github_username: dev.github_username } );
+                }}>
+                    <View style={styles.callout} >
+                        <Text style={styles.devName} >{dev.name}</Text>
+                        <Text style={styles.devBio} >{dev.bio}</Text>
+                        <Text style={styles.devTechs} >{dev.techs.join( ', ' )}</Text>
+                    </View>
+                </Callout>
+            </Marker>
+        ) )}
     </MapView>
     <View style={styles.searchForm} >
         <TextInput style={styles.searchInput}
@@ -62,10 +94,10 @@ function Main( { navigation } ) {
                     placeholderTextColor="#999"
                     autoCapitalize="words"
                     autoCorrect={false}
+                    value={techs}
+                    onChangeText={ text => setTechs( text ) }
                     />
-        <TouchableOpacity onPress={ () => {
-
-        } }
+        <TouchableOpacity onPress={loadDevs}
                     style={styles.loadButton} >
             <MaterialIcons name="my-location"
                             size={20}
@@ -107,7 +139,7 @@ const styles = StyleSheet.create({
     }
     , searchForm: {
         position: 'absolute'
-        , bottom: 20
+        , top: 20
         , left: 20
         , right: 20
         , zIndex: 5
