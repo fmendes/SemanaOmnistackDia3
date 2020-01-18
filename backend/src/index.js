@@ -13,7 +13,7 @@ const server = http.Server( app );
 setupWebSocket( server );
 
 // copied from cloud.mongodb.com cluster configuration
-mongoose.connect( 'mongodb+srv://fmendes:omnistackfmtf01@cluster0-bfjhx.mongodb.net/week10?retryWrites=true&w=majority'
+mongoose.connect( 'mongodb+srv://yourusername:yourpassword@cluster0-bfjhx.mongodb.net/week10?retryWrites=true&w=majority'
         , {
             useNewUrlParser: true
             , useUnifiedTopology: true
