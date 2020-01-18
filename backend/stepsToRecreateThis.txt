@@ -59,6 +59,8 @@ yarn add react-navigation-stack @react-native-community/masked-view
 
 # from http://docs.expo.io/
 
+# consider using gitpod and tunnel mode
+
 expo install react-native-maps
 expo install expo-location
 expo install react-native-webview
@@ -66,3 +68,14 @@ expo install react-native-webview
 yarn add axios
 
 # icons are listed in material.io/resources/icons
+
+# in the backend again
+
+yarn add socket.io
+
+# in the mobile again
+
+yarn add socket.io-client
+
+
+
