@@ -381,7 +381,7 @@ engine.io-client@~3.5.0:
     parseqs "0.0.6"
     parseuri "0.0.6"
     ws "~7.4.2"
-    xmlhttprequest-ssl "~1.5.4"
+    xmlhttprequest-ssl "~1.6.2"
     yeast "0.1.2"
 
 engine.io-parser@~2.2.0:
@@ -1394,9 +1394,9 @@ xdg-basedir@^3.0.0:
   resolved "https://registry.yarnpkg.com/xdg-basedir/-/xdg-basedir-3.0.0.tgz#496b2cc109eca8dbacfe2dc72b603c17c5870ad4"
   integrity sha1-SWsswQnsqNus/i3HK2A8F8WHCtQ=
 
-xmlhttprequest-ssl@~1.5.4:
-  version "1.5.5"
-  resolved "https://registry.yarnpkg.com/xmlhttprequest-ssl/-/xmlhttprequest-ssl-1.5.5.tgz#c2876b06168aadc40e57d97e81191ac8f4398b3e"
+xmlhttprequest-ssl@~1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/xmlhttprequest-ssl/-/xmlhttprequest-ssl-1.6.2.tgz#c2876b06168aadc40e57d97e81191ac8f4398b3e"
   integrity sha1-wodrBhaKrcQOV9l+gRkayPQ5iz4=
 
 yallist@^2.1.2:
